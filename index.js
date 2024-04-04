@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 
@@ -9,7 +9,7 @@ const http = require("http").Server(app);
 
 const socketIO = require("socket.io")(http, {
   cors: {
-    origin: "https://chat-websocket-xi.vercel.app",
+    origin: ["https://chat-websocket-xi.vercel.app", "http://localhost:5173"],
   },
 });
 
@@ -26,7 +26,7 @@ socketIO.on("connection", (socket) => {
   socket.on("join", (data) => {
     users.push(data);
     socketIO.emit("joined", users);
-    socketIO.emit("response", messages); 
+    socketIO.emit("response", messages);
   });
 
   socket.on("leave", (data) => {
