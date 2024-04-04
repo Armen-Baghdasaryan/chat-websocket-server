@@ -45,10 +45,8 @@ socketIO.on("connection", (socket) => {
 });
 
 //test
-app.get("/api", (req, res) => {
-  res.json({
-    message: "Hello",
-  });
+app.get("/", (req, res) => {
+  res.end("Server is already running...");
 });
 
 const todos = [
